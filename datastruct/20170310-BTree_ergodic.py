@@ -1,3 +1,5 @@
+
+
 class TreeNode(object):
     def __init__(self,data=0,left=0,right=0):
         self.data = data
@@ -8,7 +10,7 @@ class BTree(object):
     def __init__(self,root=0):
         self.root = root
  
- 
+#所谓的前中后序就是print语句位置的不同 
     def preOrder(self,treenode):
         if treenode is 0:
             return
