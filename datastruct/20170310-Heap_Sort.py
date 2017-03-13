@@ -1,6 +1,9 @@
 #_*_coding:utf-8_*_
 __author__ = 'Alex Li'
+
 import time,random
+
+#end: the last element index of arr, len(arr) - 1
 def sift_down(arr, node, end):
     root = node
     #print(root,2*root+1,end)
@@ -10,18 +13,22 @@ def sift_down(arr, node, end):
         child = 2 * root +1  #left child
         if child  > end:
             #print('break',)
-            break
-        print("v:",root,arr[root],child,arr[child])
-        print(arr)
-        # 找出两个child中交大的一个
+            break #if there is no left child, there is no child at all, just break
+        #print("v:",root,arr[root],child,arr[child])
+        #print(arr)
+
+
+        # 找出两个child中交大的一个; right child index = left +1
         if child + 1 <= end and arr[child] < arr[child + 1]: #如果左边小于右边
             child += 1 #设置右边为大
  
         if arr[root] < arr[child]:
             # 最大堆小于较大的child, 交换顺序
-            tmp = arr[root]
-            arr[root] = arr[child]
-            arr[child]= tmp
+            #tmp = arr[root]
+            #arr[root] = arr[child]
+            #arr[child]= tmp
+
+            arr[root],arr[child] = arr[child],arr[root]#swap statememt
  
             # 正在调整的节点设置为root
             #print("less1:", arr[root],arr[child],root,child)
@@ -33,16 +40,24 @@ def sift_down(arr, node, end):
             # 无需调整的时候, 退出
             break
     #print(arr)
-    print('-------------')
  
 def heap_sort(arr):
     # 从最后一个有子节点的孩子还是调整最大堆
-    first = len(arr) // 2 -1
+    #leaf node canbe seen as ordered heap
+
+
+    first = len(arr) // 2 -1    
+    #the first to be adjust == the last with leaf node
     for i in range(first, -1, -1):
         sift_down(arr, i, len(arr) - 1)
+    
     #[29, 22, 16, 9, 15, 21, 3, 13, 8, 7, 4, 11]
-    print('--------end---',arr)
-    # 将最大的放到堆的最后一个, 堆-1, 继续调整排序
+    print('------max heap build up---',arr)
+
+
+    # 将最大的(此时的堆顶，也就是arr[0])放到堆的最后一个, 堆-1, 继续调整排序
+
+
     for end in range(len(arr) -1, 0, -1):
         arr[0], arr[end] = arr[end], arr[0]
         sift_down(arr, 0, end - 1)
